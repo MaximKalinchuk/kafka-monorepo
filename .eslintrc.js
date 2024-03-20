@@ -22,6 +22,8 @@ module.exports = {
 		'eslint-disable-next-line': 'off',
 		"prettier/prettier": ["error", { "endOfLine": "auto" }],
 		'@typescript-eslint/no-namespace': 'off',
-		'@typescript-eslint/no-empty-function': 'off'
+		'@typescript-eslint/no-empty-function': 'off',
+		'@typescript-eslint/no-unused-vars': 'off'
+		
 	},
 };
