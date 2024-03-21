@@ -1,7 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { GroupEntity } from '../domain/entity';
 import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class GroupsQueryRepository {
 	constructor(@InjectRepository(GroupEntity) private readonly groupsQueryRepository: Repository<GroupEntity>) {}
 
