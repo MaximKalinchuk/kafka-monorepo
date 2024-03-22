@@ -12,6 +12,7 @@
     "start:dev": "nest start --watch",
     "account:dev": "cross-env NODE_ENV=development nest start account --watch",
     "groups:dev": "cross-env NODE_ENV=development nest start groups --watch",
+    "posts:dev": "cross-env NODE_ENV=development nest start posts --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/accounts/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

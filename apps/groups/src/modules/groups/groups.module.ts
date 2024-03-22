@@ -7,8 +7,9 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CreateUserUseCase } from './application/use-cases';
 import { EventGroupsController } from './api/event.groups.controller';
 import { KafkaModule } from 'apps/accounts/src/modules/kafka';
+import { UpdateGroupUsersUseCase } from './application/use-cases/events';
 
-const useCases = [CreateUserUseCase];
+const useCases = [CreateUserUseCase, UpdateGroupUsersUseCase];
 
 const repositories = [GroupsRepository, GroupsQueryRepository];
 

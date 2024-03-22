@@ -1,14 +1,10 @@
-import { Controller, Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ConsumerService } from 'apps/accounts/src/modules/kafka';
-import { UpdateGroupUsersCommand } from '../application/use-cases/events';
 
 @Injectable()
 export class EventGroupsController implements OnModuleInit {
-	constructor(
-		private readonly consumerService: ConsumerService,
-		private readonly commandBus: CommandBus,
-	) {}
+	constructor(private readonly consumerService: ConsumerService) {}
 
 	async onModuleInit() {
 		await this.consumerService.consume(
@@ -20,8 +16,6 @@ export class EventGroupsController implements OnModuleInit {
 						topic: topic.toString(),
 						partition: partition.toString(),
 					});
-
-					// await this.commandBus.execute(new UpdateGroupUsersCommand(message.value.toString()));
 				},
 			},
 		);

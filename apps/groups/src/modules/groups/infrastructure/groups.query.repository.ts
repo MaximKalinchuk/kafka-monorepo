@@ -10,4 +10,8 @@ export class GroupsQueryRepository {
 	async getGroupById(id: string) {
 		return await this.groupsQueryRepository.findOne({ where: { id } });
 	}
+
+	async getMainGroup() {
+		return await this.groupsQueryRepository.findOne({ where: { groupName: 'Main Group' } });
+	}
 }
