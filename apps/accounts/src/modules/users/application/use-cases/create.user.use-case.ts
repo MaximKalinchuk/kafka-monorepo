@@ -26,13 +26,8 @@ export class CreateUserUseCase implements ICommandHandler<CreateUserCommand> {
 
 		await this.usersRepository.save(user);
 
-		await this.producerService.produce({
-			topic: 'create-user',
-			messages: [
-				{
-					value: user.id,
-				},
-			],
+		await this.producerService.produce('create-user', {
+			value: user.id,
 		});
 
 		console.log(user);

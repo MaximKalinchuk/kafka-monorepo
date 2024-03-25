@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/typeorm.config';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
 	imports: [
@@ -10,6 +11,7 @@ import { TypeOrmConfigService } from './config/typeorm.config';
 			isGlobal: true,
 			envFilePath: `./apps/posts/.${process.env.NODE_ENV}.env`,
 		}),
+		PostsModule,
 	],
 	controllers: [],
 	providers: [],
