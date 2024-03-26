@@ -12,15 +12,13 @@ export class EventGroupsController implements OnModuleInit {
 
 	async onModuleInit() {
 		await this.consumerService.consume({
-			topic: { topic: 'create-user' },
+			topics: { topics: ['create-user'] },
 			config: { groupId: 'group-consumer' },
 			onMessage: async (message) => {
 				console.log({
 					value: message.value.toString(),
 				});
-				// throw new Error('Test error!');
-
-				// await this.commandBus.execute(new UpdateGroupUsersCommand(message.value.toString()));
+				await this.commandBus.execute(new UpdateGroupUsersCommand(message.value.toString()));
 			},
 		});
 	}

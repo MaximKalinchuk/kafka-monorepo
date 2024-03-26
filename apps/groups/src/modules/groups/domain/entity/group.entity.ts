@@ -17,6 +17,7 @@ export class GroupEntity {
 		const group = new GroupEntity();
 		group.id = randomUUID();
 		group.groupName = dto.groupName;
+		group.users = [];
 		return group;
 	}
 }

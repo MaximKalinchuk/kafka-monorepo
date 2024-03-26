@@ -8,14 +8,13 @@ export class EventPostsController implements OnModuleInit {
 
 	async onModuleInit() {
 		await this.consumerService.consume({
-			topic: { topic: 'create-user' },
-			config: { groupId: 'group-consumer' },
+			topics: { topics: ['create-user', 'create-group'] },
+			config: { groupId: 'posts-consumer' },
 			onMessage: async (message) => {
 				console.log({
 					value: message.value.toString(),
 				});
-				throw new Error('Test error!');
-
+				// throw new Error('Test error!');
 				// await this.commandBus.execute(new UpdateGroupUsersCommand(message.value.toString()));
 			},
 		});

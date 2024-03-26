@@ -1,5 +1,12 @@
 import { Logger } from '@nestjs/common';
-import { Consumer, ConsumerConfig, ConsumerSubscribeTopic, Kafka, KafkaMessage } from 'kafkajs';
+import {
+	Consumer,
+	ConsumerConfig,
+	ConsumerSubscribeTopic,
+	ConsumerSubscribeTopics,
+	Kafka,
+	KafkaMessage,
+} from 'kafkajs';
 import * as retry from 'async-retry';
 import { sleep } from '../utils/sleep';
 import { IConsumer } from './consumer.interface';
@@ -11,18 +18,18 @@ export class KafkajsConsumer implements IConsumer {
 	private readonly logger: Logger;
 
 	constructor(
-		private readonly topic: ConsumerSubscribeTopic,
+		private readonly topics: ConsumerSubscribeTopics,
 		// private readonly databaseService: DatabaseService,
 		config: ConsumerConfig,
 		broker: string,
 	) {
 		this.kafka = new Kafka({ brokers: [broker] });
 		this.consumer = this.kafka.consumer(config);
-		this.logger = new Logger(`${topic.topic}-${config.groupId}`);
+		this.logger = new Logger(`${topics}-${config.groupId}`);
 	}
 
 	async consume(onMessage: (message: KafkaMessage) => Promise<void>) {
-		await this.consumer.subscribe(this.topic);
+		await this.consumer.subscribe(this.topics);
 		await this.consumer.run({
 			eachMessage: async ({ message, partition }) => {
 				this.logger.debug(`Processing message partition: ${partition}`);

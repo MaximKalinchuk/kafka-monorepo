@@ -1,12 +1,12 @@
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ConsumerConfig, ConsumerSubscribeTopic, KafkaMessage } from 'kafkajs';
+import { ConsumerConfig, ConsumerSubscribeTopic, ConsumerSubscribeTopics, KafkaMessage } from 'kafkajs';
 // import { DatabaseService } from '../database/database.service';
 import { IConsumer } from './consumer.interface';
 import { KafkajsConsumer } from './kafkajs.consumer';
 
 interface KafkajsConsumerOptions {
-	topic: ConsumerSubscribeTopic;
+	topics: ConsumerSubscribeTopics;
 	config: ConsumerConfig;
 	onMessage: (message: KafkaMessage) => Promise<void>;
 }
@@ -20,8 +20,8 @@ export class ConsumerService implements OnApplicationShutdown {
 		// private readonly databaserService: DatabaseService,
 	) {}
 
-	async consume({ topic, config, onMessage }: KafkajsConsumerOptions) {
-		const consumer = new KafkajsConsumer(topic, config, this.configService.get('KAFKA_BROKER'));
+	async consume({ topics, config, onMessage }: KafkajsConsumerOptions) {
+		const consumer = new KafkajsConsumer(topics, config, this.configService.get('KAFKA_BROKER'));
 		await consumer.connect();
 		await consumer.consume(onMessage);
 		this.consumers.push(consumer);
